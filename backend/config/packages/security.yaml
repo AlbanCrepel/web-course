@@ -1,0 +1,50 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+        App\Entity\Admin:
+            algorithm: bcrypt
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        user:
+            entity:
+                class: App\Entity\User
+                property: email
+        admin:
+            entity:
+                class: App\Entity\Admin
+                property: email
+    firewalls:
+        login_users:
+            pattern:  ^/api/users/login
+            stateless: true
+            anonymous: true
+            provider: user
+            json_login:
+                check_path: /api/users/login_check
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        login_admins:
+            pattern:  ^/api/admins/login
+            stateless: true
+            anonymous: true
+            provider: admin
+            json_login:
+                check_path: /api/admins/login_check
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+
+    access_control:
+        - { path: ^/api/users/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/admins/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: [ ROLE_USER ] }

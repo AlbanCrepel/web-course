@@ -1,0 +1,16 @@
+# This version of docker compose is for development only.
+version: '3.2'
+services:
+  test:
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=toutescultur
+    volumes:
+      - ./postgres/postgresql.conf:/usr/share/postgresql/postgresql.conf
+      - ./postgres/postgresql.conf:/usr/share/postgresql/10/postgresql.conf
+      - test:/var/lib/postgresql/data
+volumes:
+  test: ~
