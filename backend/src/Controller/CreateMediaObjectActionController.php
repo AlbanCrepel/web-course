@@ -19,7 +19,6 @@ class CreateMediaObjectActionController extends AbstractController
      *     name="api_medias_post",
      *     path="api/mediah",
      *     methods={"POST"},
-     *
      * )
      */
     public function postAction(Request $request){
