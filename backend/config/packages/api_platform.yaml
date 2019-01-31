@@ -6,3 +6,16 @@ api_platform:
             apiKey:
                 name: Authorization
                 type: header
+
+    formats:
+        json:
+            mime_types: ['application/json']
+
+        jsonld:
+            mime_types: ['application/ld+json']
+
+        html:
+            mime_types: ['text/html']
+
+framework:
+    serializer: { enable_annotations: true }

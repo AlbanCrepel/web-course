@@ -79,8 +79,22 @@ See the [doc](https://symfony.com/doc/current/doctrine/associations.html) for mo
 
 ## How to get only the fields we want on certain operations (routes)
 
+See [here](https://api-platform.com/docs/core/serialization/)
+
 ```php
 use Symfony\Component\Serializer\Annotation\Groups;
 
 @Groups("photo_collection")
 ```
+
+## Security on certain routes
+
+See [here](https://api-platform.com/docs/core/security/)
+
+## Filters (where clauses)
+
+See [here](https://api-platform.com/docs/core/filters/)
+
+## Changing default order 
+
+See [here](https://api-platform.com/docs/core/default-order/)

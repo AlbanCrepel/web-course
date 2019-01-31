@@ -5,12 +5,18 @@ namespace App\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+/**
+ * Class AbstractUser
+ * @package App\Entity
+ */
 abstract class AbstractUser implements UserInterface {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user_read","admin_read"})
      */
     protected $id;
 
@@ -31,6 +37,7 @@ abstract class AbstractUser implements UserInterface {
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
+     * @Groups({"user_read"})
      */
     protected $isActive;
 
@@ -50,7 +57,7 @@ abstract class AbstractUser implements UserInterface {
      * Alternatively, the roles might be stored on a ``roles`` property,
      * and populated in any number of different ways when the user object
      * is created.
-     *
+     * @Groups({"user_read"})
      * @return (Role|string)[] The user roles
      */
     public function getRoles()
@@ -99,6 +106,17 @@ abstract class AbstractUser implements UserInterface {
      * @return string The username
      */
     public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @Groups({"user_read","ahah"})
+     * @return string The email
+     */
+    public function getEmail()
     {
         return $this->email;
     }

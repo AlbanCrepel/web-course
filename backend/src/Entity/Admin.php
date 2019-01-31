@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Table(name="admins")
- * @ApiResource(itemOperations={
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user_read","admin_read"}},
+ *     itemOperations={
  *      "get",
  *      "delete",
  *  }, collectionOperations={
@@ -24,6 +27,9 @@ class Admin extends AbstractUser
      */
     private $name;
 
+    /**
+     * @Groups({"user_read"})
+     */
     public function getName(): ?string
     {
         return $this->name;
