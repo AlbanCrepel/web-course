@@ -93,3 +93,45 @@
 *ANIMATION WITH GSAP*
 - [GSAP Cheatsheet](https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf)
 - [https://greensock.com/docs/TimelineMax](https://greensock.com/docs/TimelineMax)
+
+
+## Some useful commands
+
+```bash
+# BACKEND
+# launching server
+# it has to be the same port found in ./frontend/vue.config.js
+php bin/console server:start 0.0.0.0:8000
+
+# create the db after initializing the project
+php bin/console doctrine:schema:create
+
+# making entities and their relationships
+php bin/console make:entity
+
+# applying changes to the database
+php bin/console doctrine:schema:update --force
+
+# FRONTEND
+# launching the front-end development mode
+npm run serve
+```
+
+## Additionnal routes (login)
+
+2 routes have been made to login users
+- `/api/users/login_check` to login users
+- `/api/admins/login_check` to login admins
+
+It returns a JsonWebToken (JWT) that you can store in the localStorage (js store) and
+then send to requests in which you have to be authenticated via an Auth header.
+
+## Set up
+
+In `./backend/.env` file :
+```dotenv
+# connect to the srv-peda postgres database
+DATABASE_URL=pgsl://login:password@10.100.100.59:5433/databaseName
+```
+
+In `./backend/config/packages/doctrine.yaml`, change the key `doctrine.dbal.driver` to `pdo_pgsql`.
